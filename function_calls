@@ -1,0 +1,402 @@
+<invoke name="edit_file">
+    <parameter name="target_file">index.html</parameter>
+    <parameter name="instructions">重新设计主页面</parameter>
+    <parameter name="code_edit">
+        <!DOCTYPE html>
+        <html lang="zh-CN">
+
+        <head>
+            <meta charset="utf-8">
+            <meta name="viewport"
+                content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+            <title>基因开赋预测</title>
+            <link rel="stylesheet" href="styles.css">
+        </head>
+
+        <body>
+            <div class="container">
+                <div class="header">
+                    <div class="header-bg"></div>
+                    <div class="title-text">因开赋预测</div>
+                    <div class="header-image">
+                        <img src="person.png" alt="占卜师">
+                    </div>
+                </div>
+
+                <div class="form-container">
+                    <div class="input-group">
+                        <label>您的姓名</label>
+                        <input type="text" id="name" class="input-field" placeholder="请输入姓名（必须汉字）">
+                    </div>
+
+                    <div class="input-group">
+                        <label>您的性别</label>
+                        <div class="gender-buttons">
+                            <button class="gender-button active" id="male">男</button>
+                            <button class="gender-button" id="female">女</button>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>出生日期</label>
+                        <div class="date-select">
+                            <select id="birth-year" class="date-input">
+                                <option value="">年</option>
+                            </select>
+                            <select id="birth-month" class="date-input">
+                                <option value="">月</option>
+                            </select>
+                            <select id="birth-day" class="date-input">
+                                <option value="">日</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button class="submit-button" id="calculate">立即测算</button>
+
+                    <div class="agreement">
+                        <label>
+                            <input type="checkbox" id="agree">
+                            <span>查看《用户协议》和《隐私协议》</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <script src="script.js"></script>
+        </body>
+
+        </html>
+    </parameter>
+    <parameter name="blocking">true</parameter>
+</invoke>
+
+<invoke name="read_file">
+    <parameter name="relative_workspace_path">index.html</parameter>
+    <parameter name="should_read_entire_file">true</parameter>
+    <parameter name="start_line_one_indexed">1</parameter>
+    <parameter name="end_line_one_indexed_inclusive">100</parameter>
+    <parameter name="explanation">检查当前的HTML内容</parameter>
+</invoke>
+
+<invoke name="edit_file">
+    <parameter name="target_file">styles.css</parameter>
+    <parameter name="instructions">重新设计样式</parameter>
+    <parameter name="code_edit">* {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        }
+
+        body {
+        background: #000;
+        color: #fff;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+        line-height: 1.5;
+        }
+
+        .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 15px;
+        }
+
+        /* 头部区域 */
+        .header {
+        position: relative;
+        width: 100%;
+        height: 200px;
+        border-radius: 16px;
+        overflow: hidden;
+        margin-bottom: 20px;
+        }
+
+        .header-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #FF6B6B;
+        background: linear-gradient(90deg, #FF8E53, #FF6B6B);
+        }
+
+        .title-text {
+        position: absolute;
+        left: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #FFD700;
+        font-size: 24px;
+        writing-mode: vertical-lr;
+        letter-spacing: 10px;
+        line-height: 1.5;
+        z-index: 1;
+        }
+
+        .header-image {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        height: 100%;
+        z-index: 1;
+        }
+
+        .header-image img {
+        height: 100%;
+        width: auto;
+        object-fit: contain;
+        }
+
+        /* 表单容器 */
+        .form-container {
+        background: #1C1C1E;
+        border-radius: 16px;
+        padding: 20px;
+        }
+
+        .input-group {
+        margin-bottom: 20px;
+        }
+
+        .input-group label {
+        display: block;
+        color: #fff;
+        margin-bottom: 10px;
+        font-size: 16px;
+        }
+
+        .input-field {
+        width: 100%;
+        height: 48px;
+        background: #2C2C2E;
+        border: none;
+        border-radius: 8px;
+        color: #fff;
+        padding: 0 15px;
+        font-size: 16px;
+        }
+
+        /* 性别选择 */
+        .gender-buttons {
+        display: flex;
+        gap: 12px;
+        }
+
+        .gender-button {
+        flex: 1;
+        height: 48px;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        background: #2C2C2E;
+        color: #fff;
+        }
+
+        .gender-button.active {
+        background: #FF6B6B;
+        }
+
+        /* 日期选择 */
+        .date-select {
+        display: flex;
+        gap: 12px;
+        }
+
+        .date-input {
+        flex: 1;
+        height: 48px;
+        background: #2C2C2E;
+        border: none;
+        border-radius: 8px;
+        color: #fff;
+        padding: 0 15px;
+        font-size: 16px;
+        appearance: none;
+        }
+
+        /* 提交按钮 */
+        .submit-button {
+        width: 100%;
+        height: 48px;
+        background: #FF6B6B;
+        border: none;
+        border-radius: 8px;
+        color: #fff;
+        font-size: 18px;
+        cursor: pointer;
+        margin-top: 20px;
+        }
+
+        /* 协议 */
+        .agreement {
+        margin-top: 15px;
+        text-align: center;
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 14px;
+        }
+
+        .agreement input[type="checkbox"] {
+        margin-right: 8px;
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+        .container {
+        padding: 10px;
+        }
+
+        .header {
+        height: 180px;
+        }
+
+        .title-text {
+        font-size: 20px;
+        letter-spacing: 8px;
+        }
+
+        .form-container {
+        padding: 15px;
+        }
+        }</parameter>
+    <parameter name="blocking">true</parameter>
+</invoke>
+
+<invoke name="edit_file">
+    <parameter name="target_file">result.html</parameter>
+    <parameter name="instructions">创建结果页面模板</parameter>
+    <parameter name="code_edit">
+        <!DOCTYPE html>
+        <html lang="zh-CN">
+
+        <head>
+            <meta charset="utf-8">
+            <meta name="viewport"
+                content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+            <title>基因开赋分析报告</title>
+            <link rel="stylesheet" href="styles.css">
+        </head>
+
+        <body class="result-page">
+            <div class="container">
+                <h1 class="result-title">基因开赋分析报告</h1>
+                <div class="result-subtitle">尊敬的 美云教育派 您好</div>
+
+                <div class="result-section">
+                    <h2>基因数值</h2>
+                    <div class="gourd-numbers">
+                        <div class="number-circle">2</div>
+                        <div class="number-row">
+                            <div class="number-circle">1</div>
+                            <div class="number-circle">1</div>
+                        </div>
+                        <div class="number-row">
+                            <div class="number-circle">1</div>
+                            <div class="number-circle">9</div>
+                            <div class="number-circle">5</div>
+                            <div class="number-circle">5</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="result-section">
+                    <h2>性格特征</h2>
+                    <div class="result-content">
+                        <!-- 性格特征内容 -->
+                    </div>
+                </div>
+
+                <div class="result-section">
+                    <h2>心声解读</h2>
+                    <div class="result-content">
+                        <!-- 心声解读内容 -->
+                    </div>
+                </div>
+
+                <div class="result-section">
+                    <h2>天赋能力</h2>
+                    <div class="result-content">
+                        <!-- 天赋能力内容 -->
+                    </div>
+                </div>
+
+                <div class="result-section">
+                    <h2>适合职业</h2>
+                    <div class="result-content">
+                        <!-- 适合职业内容 -->
+                    </div>
+                </div>
+            </div>
+        </body>
+
+        </html>
+    </parameter>
+    <parameter name="blocking">true</parameter>
+</invoke>
+
+<invoke name="edit_file">
+    <parameter name="target_file">script.js</parameter>
+    <parameter name="instructions">更新JavaScript逻辑</parameter>
+    <parameter name="code_edit">// 初始化日期选择器
+        function initializeDateSelectors() {
+        const yearSelect = document.getElementById('birth-year');
+        const monthSelect = document.getElementById('birth-month');
+        const daySelect = document.getElementById('birth-day');
+
+        // 清空现有选项
+        yearSelect.innerHTML = '<option value="">年</option>';
+        monthSelect.innerHTML = '<option value="">月</option>';
+        daySelect.innerHTML = '<option value="">日</option>';
+
+        // 添加年份选项（1900年到当前年份）
+        const currentYear = new Date().getFullYear();
+        for (let year = currentYear; year >= 1900; year--) {
+        const option = document.createElement('option');
+        option.value = year;
+        option.textContent = year;
+        yearSelect.appendChild(option);
+        }
+
+        // 添加月份选项
+        for (let month = 1; month <= 12; month++) { const option=document.createElement('option');
+            option.value=month.toString().padStart(2, '0' ); option.textContent=month; monthSelect.appendChild(option);
+            } // 更新日期选项 function updateDays() { const year=parseInt(yearSelect.value) || new Date().getFullYear(); const
+            month=parseInt(monthSelect.value) || 1; const daysInMonth=new Date(year, month, 0).getDate();
+            daySelect.innerHTML='<option value="">日</option>' ; for (let day=1; day <=daysInMonth; day++) { const
+            option=document.createElement('option'); option.value=day.toString().padStart(2, '0' );
+            option.textContent=day; daySelect.appendChild(option); } } yearSelect.addEventListener('change',
+            updateDays); monthSelect.addEventListener('change', updateDays); updateDays(); } // 页面加载完成后初始化
+            document.addEventListener('DOMContentLoaded', function() { initializeDateSelectors(); // 性别选择
+            document.querySelectorAll('.gender-button').forEach(button=> {
+            button.addEventListener('click', function() {
+            document.querySelector('.gender-button.active').classList.remove('active');
+            this.classList.add('active');
+            });
+            });
+
+            // 提交按钮点击事件
+            document.getElementById('calculate').addEventListener('click', function() {
+            const name = document.getElementById('name').value;
+            const gender = document.querySelector('.gender-button.active').textContent;
+            const year = document.getElementById('birth-year').value;
+            const month = document.getElementById('birth-month').value;
+            const day = document.getElementById('birth-day').value;
+            const agree = document.getElementById('agree').checked;
+
+            if (!name || !year || !month || !day) {
+            alert('请填写完整信息');
+            return;
+            }
+
+            if (!agree) {
+            alert('请阅读并同意用户协议和隐私协议');
+            return;
+            }
+
+            // 处理提交逻辑
+            const birthdate = `${year}-${month}-${day}`;
+            // 这里添加您的计算逻辑
+            });
+            });</parameter>
+    <parameter name="blocking">true</parameter>
+</invoke>

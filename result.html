@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>基因开赋预测结果</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="result-page">
+    <div class="result-wrapper">
+        <!-- 神秘计算动画 -->
+        <div class="calculation-animation" id="calculationAnimation">
+            <div class="calculation-content">
+                <div class="magic-circle">
+                    <div class="circle-outer"></div>
+                    <div class="circle-inner"></div>
+                    <div class="symbols">
+                        <span>基</span>
+                        <span>因</span>
+                        <span>解</span>
+                        <span>析</span>
+                    </div>
+                </div>
+                <div class="calculating-text">正在解析基因密码...</div>
+            </div>
+        </div>
+
+        <!-- 结果展示区域 -->
+        <div class="result-container" id="result" style="display: none;">
+            <div class="result-header">
+                <h1 class="typing">基因开赋分析报告</h1>
+                <div class="user-info typing">尊敬的 <span id="userName"></span> 您好</div>
+            </div>
+
+            <div class="gourd-section section">
+                <h2 class="section-title">基因数值</h2>
+                <div class="gourd-diagram">
+                    <div class="gourd-shape">
+                        <div class="top-number"></div>
+                        <div class="middle-numbers"></div>
+                        <div class="bottom-numbers"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="personality-section section">
+                <h2 class="section-title">性格特征</h2>
+                <div id="personality" class="content-box"></div>
+            </div>
+
+            <div class="inner-voice-section section">
+                <h2 class="section-title">心声解读</h2>
+                <div id="inner-voice" class="content-box"></div>
+            </div>
+
+            <div class="talents-section section">
+                <h2 class="section-title">天赋能力</h2>
+                <div id="talents" class="content-box"></div>
+            </div>
+
+            <div class="career-section section">
+                <h2 class="section-title">适合职业</h2>
+                <div id="career" class="content-box"></div>
+            </div>
+
+            <div class="advice-section section">
+                <h2 class="section-title">人生忠告</h2>
+                <div id="advice" class="content-box"></div>
+            </div>
+        </div>
+    </div>
+    <script src="result.js"></script>
+</body>
+
+</html>
