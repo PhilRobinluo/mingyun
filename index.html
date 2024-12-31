@@ -1,119 +1,59 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>命理分析</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <div class="report-container">
-        <h1>基因开赋分析报告</h1>
-
-        <!-- 添加顶部背景设计 -->
-        <div class="top-banner">
-            <div class="banner-image">
-                <img src="assets/person.png" alt="形象">
-            </div>
-            <div class="banner-content">
-                <div class="lantern"></div>
-                <div class="title-area">
-                    <div class="year-tag">2025蛇年版</div>
-                    <div class="main-title">基因天赋预测</div>
-                    <div class="sub-title">解密天赋密码·预见人生轨迹</div>
-                </div>
-                <div class="plum-blossom"></div>
-            </div>
-        </div>
-
-        <!-- 表单区域 -->
-        <div class="form-container">
+    <div class="container">
+        <form id="analysisForm">
             <div class="input-group">
-                <label>您的姓名</label>
-                <input type="text" id="name" placeholder="请输入姓名（必须汉字）">
+                <label for="name">姓名：</label>
+                <input type="text" id="name" required placeholder="请输入您的姓名">
             </div>
 
             <div class="input-group">
-                <label>您的性别</label>
+                <label>性别：</label>
                 <div class="gender-buttons">
-                    <button class="active" id="male">男</button>
-                    <button id="female">女</button>
+                    <input type="radio" id="male" name="gender" value="male" required>
+                    <label for="male">男</label>
+                    <input type="radio" id="female" name="gender" value="female">
+                    <label for="female">女</label>
                 </div>
             </div>
 
             <div class="input-group">
-                <label>出生日期</label>
+                <label>出生日期：</label>
                 <div class="date-select">
-                    <select id="birth-year" class="date-input">
+                    <select id="year" required>
                         <option value="">年</option>
                     </select>
-                    <select id="birth-month" class="date-input">
+                    <select id="month" required>
                         <option value="">月</option>
                     </select>
-                    <select id="birth-day" class="date-input">
+                    <select id="day" required>
                         <option value="">日</option>
                     </select>
                 </div>
             </div>
-        </div>
 
-        <!-- 按钮区域 -->
-        <div class="button-area">
-            <button class="submit-button" id="calculate">立即测算</button>
-        </div>
+            <div class="input-group">
+                <input type="checkbox" id="agree" required>
+                <label for="agree">我已阅读并同意用户协议</label>
+            </div>
 
-        <!-- 协议区域 -->
-        <div class="agreement">
-            <input type="checkbox" id="agree">
-            <label for="agree">查看《用户协议》和《隐私协议》</label>
-        </div>
+            <button type="submit">开始分析</button>
+        </form>
 
-        <!-- 计算动画 -->
-        <div class="calculation-animation" id="calculationAnimation" style="display: none;">
-            <div class="calculation-content">
-                <div class="magic-circle">
-                    <div class="circle-outer"></div>
-                    <div class="circle-inner"></div>
-                    <div class="symbols">
-                        <span>卦</span>
-                        <span>算</span>
-                        <span>命</span>
-                        <span>理</span>
-                    </div>
-                </div>
-                <div class="calculating-text">正在解析基因密码...</div>
-            </div>
-        </div>
-
-        <!-- 结果展示区域 -->
-        <div class="result-container fade-in" id="result" style="display: none;">
-            <div class="greeting">
-                <p>尊敬的 <span id="user-name"></span> 您好</p>
-            </div>
-            <h2>您的命理分析结果</h2>
-            <div class="gourd-diagram">
-                <div class="gourd-shape">
-                    <div class="top-number"></div>
-                    <div class="middle-numbers"></div>
-                    <div class="bottom-numbers"></div>
-                </div>
-            </div>
-            <div class="analysis-content">
-                <h3>性格特征</h3>
-                <div id="personality"></div>
-                <h3>心声解读</h3>
-                <div id="inner-voice"></div>
-                <h3>天赋能力</h3>
-                <div id="talents"></div>
-                <h3>适合职业</h3>
-                <div id="career"></div>
-                <h3>人生忠告</h3>
-                <div id="advice"></div>
-            </div>
+        <div id="result" style="display: none;">
+            <!-- 结果将通过JavaScript动态添加 -->
         </div>
     </div>
+
     <script src="script.js"></script>
 </body>
 
