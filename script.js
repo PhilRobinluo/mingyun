@@ -1,324 +1,242 @@
 // 初始化日期选择器
 function initializeDateSelectors() {
-    const yearSelect = document.getElementById('birth-year');
-    const monthSelect = document.getElementById('birth-month');
-    const daySelect = document.getElementById('birth-day');
+    const yearSelect = document.getElementById('year');
+    const monthSelect = document.getElementById('month');
+    const daySelect = document.getElementById('day');
 
-    // 清空现有选项
-    yearSelect.innerHTML = '<option value="">年</option>';
-    monthSelect.innerHTML = '<option value="">月</option>';
-    daySelect.innerHTML = '<option value="">日</option>';
-
-    // 添加年份选项（1900年到当前年份）
-    const currentYear = new Date().getFullYear();
-    for (let year = currentYear; year >= 1900; year--) {
+    // 填充年份选项（1900-2024）
+    for (let year = 2024; year >= 1900; year--) {
         const option = document.createElement('option');
         option.value = year;
         option.textContent = year;
         yearSelect.appendChild(option);
     }
 
-    // 添加月份选项
+    // 填充月份选项（1-12）
     for (let month = 1; month <= 12; month++) {
         const option = document.createElement('option');
-        option.value = month.toString().padStart(2, '0');
+        option.value = month;
         option.textContent = month;
         monthSelect.appendChild(option);
     }
 
     // 更新日期选项
     function updateDays() {
-        const year = parseInt(yearSelect.value) || new Date().getFullYear();
-        const month = parseInt(monthSelect.value) || 1;
+        const year = parseInt(yearSelect.value);
+        const month = parseInt(monthSelect.value);
         const daysInMonth = new Date(year, month, 0).getDate();
 
-        daySelect.innerHTML = '<option value="">日</option>';
+        // 清空现有的日期选项
+        daySelect.innerHTML = '';
+
+        // 填充日期选项
         for (let day = 1; day <= daysInMonth; day++) {
             const option = document.createElement('option');
-            option.value = day.toString().padStart(2, '0');
+            option.value = day;
             option.textContent = day;
             daySelect.appendChild(option);
         }
     }
 
+    // 当年份或月份改变时更新日期选项
     yearSelect.addEventListener('change', updateDays);
     monthSelect.addEventListener('change', updateDays);
+
+    // 初始化日期选项
     updateDays();
 }
 
-// 计算单个数字的和直到得到个位数
-function reduceToSingleDigit(num) {
-    while (num >= 10) {
-        num = Math.floor(num / 10) + (num % 10);
-    }
-    return num;
-}
-
 // 计算葫芦数字
-function calculateGourdNumbers(birthdate) {
-    const [year, month, day] = birthdate.split('-');
-    const yearLastTwo = year.slice(-2);
+function calculateGourdNumbers(name, year, month, day, gender) {
+    // 基础计算逻辑
+    let nameNumber = calculateNameNumber(name);
+    let birthNumber = calculateBirthNumber(year, month, day);
+    let destinyNumber = calculateDestinyNumber(nameNumber, birthNumber);
 
-    // 计算底层数字
-    const bottomNumbers = [
-        reduceToSingleDigit(parseInt(day[0] || 0) + parseInt(day[1] || 0)),
-        reduceToSingleDigit(parseInt(month[0] || 0) + parseInt(month[1] || 0)),
-        reduceToSingleDigit(parseInt(yearLastTwo[0] || 0) + parseInt(yearLastTwo[1] || 0)),
-        reduceToSingleDigit(parseInt(yearLastTwo[0] || 0) + parseInt(yearLastTwo[1] || 0))
-    ];
-
-    // 计算中层数字
-    const middleNumbers = [
-        reduceToSingleDigit(bottomNumbers[0] + bottomNumbers[1]),
-        reduceToSingleDigit(bottomNumbers[2] + bottomNumbers[3])
-    ];
-
-    // 计算顶层数字
-    const topNumber = reduceToSingleDigit(middleNumbers[0] + middleNumbers[1]);
+    // 根据性别调整计算
+    if (gender === 'female') {
+        nameNumber = adjustNumberForFemale(nameNumber);
+        birthNumber = adjustNumberForFemale(birthNumber);
+        destinyNumber = adjustNumberForFemale(destinyNumber);
+    }
 
     return {
-        bottom: bottomNumbers,
-        middle: middleNumbers,
-        top: topNumber
+        nameNumber,
+        birthNumber,
+        destinyNumber
     };
 }
 
-// 获取完整的日期字符串
-function getSelectedDate() {
-    const year = document.getElementById('birth-year').value;
-    const month = document.getElementById('birth-month').value;
-    const day = document.getElementById('birth-day').value;
-
-    if (!year || !month || !day) return '';
-    return `${year}-${month}-${day}`;
+// 计算姓名数字
+function calculateNameNumber(name) {
+    let total = 0;
+    for (let i = 0; i < name.length; i++) {
+        total += name.charCodeAt(i);
+    }
+    return reduceToSingleDigit(total);
 }
 
-// 显示计算动画
-function showCalculationAnimation() {
-    const animation = document.getElementById('calculationAnimation');
-    animation.style.display = 'flex';
-    return new Promise(resolve => setTimeout(resolve, 3000)); // 展示3秒
+// 计算生日数字
+function calculateBirthNumber(year, month, day) {
+    let total = year + month + day;
+    return reduceToSingleDigit(total);
 }
 
-// 隐藏计算动画
-function hideCalculationAnimation() {
-    const animation = document.getElementById('calculationAnimation');
-    animation.style.display = 'none';
+// 计算命运数字
+function calculateDestinyNumber(nameNumber, birthNumber) {
+    return reduceToSingleDigit(nameNumber + birthNumber);
 }
 
-// 逐个显示结果项
-function showResultItems() {
-    const items = document.querySelectorAll('.result-item');
-    items.forEach((item, index) => {
-        setTimeout(() => {
-            item.classList.add('show');
-        }, index * 500); // 每隔500ms显示一项
-    });
-}
-
-// 添加打字机效果函数
-function typewriterEffect(element, text, speed = 50) {
-    return new Promise(resolve => {
-        let i = 0;
-        element.textContent = '';
-        const timer = setInterval(() => {
-            if (i < text.length) {
-                element.textContent += text.charAt(i);
-                i++;
-            } else {
-                clearInterval(timer);
-                resolve();
-            }
-        }, speed);
-    });
-}
-
-// 添加列表项打字机效果
-function typewriterListItems(element, items, speed = 50) {
-    return new Promise(async resolve => {
-        for (let item of items) {
-            const li = document.createElement('li');
-            element.appendChild(li);
-            await typewriterEffect(li, item, speed);
+// 将数字化简为个位数
+function reduceToSingleDigit(number) {
+    while (number > 9) {
+        let sum = 0;
+        while (number > 0) {
+            sum += number % 10;
+            number = Math.floor(number / 10);
         }
-        resolve();
-    });
+        number = sum;
+    }
+    return number;
 }
 
-// 修改显示结果函数
-async function displayResults(numbers, analysis) {
-    // 先显示计算动画
-    await showCalculationAnimation();
-    hideCalculationAnimation();
+// 女性数字调整
+function adjustNumberForFemale(number) {
+    return ((number * 6) % 9) + 1;
+}
 
-    const resultDiv = document.getElementById('result');
-    resultDiv.style.display = 'block';
+// 显示结果
+function displayResults(name, numbers) {
+    const resultContainer = document.getElementById('result');
+    resultContainer.style.display = 'block';
+
+    // 显示问候语
+    const greeting = document.createElement('div');
+    greeting.className = 'greeting';
+    greeting.textContent = `${name}，以下是您的命理分析结果：`;
+    resultContainer.appendChild(greeting);
+
+    // 创建葫芦图
+    const gourdDiagram = document.createElement('div');
+    gourdDiagram.className = 'gourd-diagram';
+
+    const gourdShape = document.createElement('div');
+    gourdShape.className = 'gourd-shape';
+
+    // 顶部数字
+    const topNumber = document.createElement('div');
+    topNumber.className = 'top-number number-appear';
+    topNumber.textContent = numbers.destinyNumber;
+
+    // 中间数字
+    const middleNumbers = document.createElement('div');
+    middleNumbers.className = 'middle-numbers number-appear';
+    middleNumbers.textContent = numbers.nameNumber;
+
+    // 底部数字
+    const bottomNumbers = document.createElement('div');
+    bottomNumbers.className = 'bottom-numbers number-appear';
+    bottomNumbers.textContent = numbers.birthNumber;
+
+    // 组装葫芦图
+    gourdShape.appendChild(topNumber);
+    gourdShape.appendChild(middleNumbers);
+    gourdShape.appendChild(bottomNumbers);
+    gourdDiagram.appendChild(gourdShape);
+    resultContainer.appendChild(gourdDiagram);
+
+    // 显示分析内容
+    const analysisContent = document.createElement('div');
+    analysisContent.className = 'analysis-content fade-in';
+
+    // 性格特征分析
+    const personalityTitle = document.createElement('h3');
+    personalityTitle.textContent = '性格特征分析';
+    analysisContent.appendChild(personalityTitle);
+
+    const positive = document.createElement('div');
+    positive.className = 'positive';
+    positive.innerHTML = `<h4>正面特质：</h4>
+        <ul>
+            <li>富有创造力和想象力</li>
+            <li>善于沟通和表达</li>
+            <li>具有领导才能</li>
+        </ul>`;
+    analysisContent.appendChild(positive);
+
+    const negative = document.createElement('div');
+    negative.className = 'negative';
+    negative.innerHTML = `<h4>需要注意的方面：</h4>
+        <ul>
+            <li>有时过于理想化</li>
+            <li>容易感情用事</li>
+            <li>决策时可能优柔寡断</li>
+        </ul>`;
+    analysisContent.appendChild(negative);
+
+    resultContainer.appendChild(analysisContent);
 
     // 添加渐显效果
     setTimeout(() => {
-        resultDiv.classList.add('show');
+        analysisContent.classList.add('show');
     }, 100);
-
-    // 1. 显示葫芦图数字（带动画）
-    const topNumber = document.querySelector('.top-number');
-    const middleNumbers = document.querySelector('.middle-numbers');
-    const bottomNumbers = document.querySelector('.bottom-numbers');
-
-    topNumber.classList.add('number-appear');
-    await new Promise(resolve => setTimeout(resolve, 500));
-    topNumber.textContent = numbers.top;
-
-    middleNumbers.classList.add('number-appear');
-    await new Promise(resolve => setTimeout(resolve, 500));
-    middleNumbers.textContent = numbers.middle.join(' ');
-
-    bottomNumbers.classList.add('number-appear');
-    await new Promise(resolve => setTimeout(resolve, 500));
-    bottomNumbers.textContent = numbers.bottom.join(' ');
-
-    // 2. 逐个显示分析结果模块
-    // 性格特征
-    const personalityDiv = document.createElement('div');
-    personalityDiv.className = 'result-item module-appear';
-    document.getElementById('personality').innerHTML = '';
-    document.getElementById('personality').appendChild(personalityDiv);
-
-    const positiveDiv = document.createElement('div');
-    positiveDiv.className = 'positive';
-    const negativeDiv = document.createElement('div');
-    negativeDiv.className = 'negative';
-
-    personalityDiv.appendChild(positiveDiv);
-    personalityDiv.appendChild(negativeDiv);
-
-    await typewriterEffect(document.createElement('h4'), '正面特质：', 50);
-    positiveDiv.appendChild(document.createElement('p'));
-    await typewriterEffect(positiveDiv.querySelector('p'), analysis.personality.positive.join('、'), 50);
-
-    await typewriterEffect(document.createElement('h4'), '负面特质：', 50);
-    negativeDiv.appendChild(document.createElement('p'));
-    await typewriterEffect(negativeDiv.querySelector('p'), analysis.personality.negative.join('、'), 50);
-
-    // 心声解读
-    const innerVoiceDiv = document.createElement('div');
-    innerVoiceDiv.className = 'result-item module-appear';
-    const innerVoiceUl = document.createElement('ul');
-    innerVoiceDiv.appendChild(innerVoiceUl);
-    document.getElementById('inner-voice').innerHTML = '';
-    document.getElementById('inner-voice').appendChild(innerVoiceDiv);
-    await typewriterListItems(innerVoiceUl, analysis.innerVoice);
-
-    // 天赋能力
-    const talentsDiv = document.createElement('div');
-    talentsDiv.className = 'result-item module-appear';
-    document.getElementById('talents').innerHTML = '';
-    document.getElementById('talents').appendChild(talentsDiv);
-    await typewriterEffect(talentsDiv, analysis.talents);
-
-    // 适合职业
-    const careerDiv = document.createElement('div');
-    careerDiv.className = 'result-item module-appear';
-    document.getElementById('career').innerHTML = '';
-    document.getElementById('career').appendChild(careerDiv);
-    await typewriterEffect(careerDiv, analysis.career);
-
-    // 人生忠告
-    const adviceDiv = document.createElement('div');
-    adviceDiv.className = 'result-item module-appear';
-    document.getElementById('advice').innerHTML = '';
-    document.getElementById('advice').appendChild(adviceDiv);
-    await typewriterEffect(adviceDiv, analysis.advice);
-
-    // 平滑滚动到结果区域
-    resultDiv.scrollIntoView({ behavior: 'smooth' });
 }
 
-// 在 DOMContentLoaded 事件处理函数中添加
-function addFireworks() {
-    const banner = document.querySelector('.top-banner');
-
-    function createFirework() {
-        const firework = document.createElement('div');
-        firework.className = 'firework';
-        firework.style.left = Math.random() * 100 + '%';
-        firework.style.animationDuration = (Math.random() * 1 + 0.5) + 's';
-        banner.appendChild(firework);
-
-        setTimeout(() => {
-            banner.removeChild(firework);
-        }, 1000);
-    }
-
-    setInterval(createFirework, 2000);
-}
-
-// 初始化页面
+// 页面加载完成后初始化
 document.addEventListener('DOMContentLoaded', function () {
     initializeDateSelectors();
 
-    // 性别选择按钮交互
-    document.querySelectorAll('.gender-buttons button').forEach(button => {
-        button.addEventListener('click', function () {
-            document.querySelector('.gender-buttons .active').classList.remove('active');
-            this.classList.add('active');
-        });
-    });
+    // 获取表单元素
+    const form = document.getElementById('analysisForm');
+    const nameInput = document.getElementById('name');
+    const yearSelect = document.getElementById('year');
+    const monthSelect = document.getElementById('month');
+    const daySelect = document.getElementById('day');
+    const genderButtons = document.querySelectorAll('input[name="gender"]');
+    const agreeCheckbox = document.getElementById('agree');
 
-    // 计算按钮点击事件
-    document.getElementById('calculate').addEventListener('click', function () {
-        const name = document.getElementById('name').value;
-        const birthdate = getSelectedDate();
+    // 监听表单提交
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
 
-        if (!name || !birthdate) {
-            alert('请填写姓名并选择完整的出生日期');
+        // 验证表单
+        if (!nameInput.value.trim()) {
+            alert('请输入姓名');
             return;
         }
 
-        const numbers = calculateGourdNumbers(birthdate);
-        const analysis = {
-            personality: {
-                positive: ["领导者", "自信", "独立", "创造力", "果断", "乐观", "勇敢", "创意", "使命必达"],
-                negative: ["自以为是", "说教", "强势", "居高临下", "攀比"]
-            },
-            innerVoice: [
-                "你有没有觉得什么都要自己做？",
-                "你有没有发现任何时候，特别喜欢想事情？",
-                "你常常不放心别人做的事？",
-                "你有没有觉得怎么每次想靠谁，那么谁都出乎你的意料？"
-            ],
-            talents: "您拥有领袖能力和独立思考能力，通常具有一定的领导力，善于独立思考和解决问题。",
-            career: "领导、老板、公司主管、发明家、艺术家等能发挥领导力和创造力的职业",
-            advice: "放：对下属和朋友放手，让他们各自经历。对领导表示臣服，遵守职场规则、社会规则等。"
-        };
+        if (!agreeCheckbox.checked) {
+            alert('请阅读并同意用户协议');
+            return;
+        }
 
-        // 将数据编码并传递到结果页面
-        const params = new URLSearchParams({
-            name: name,
-            numbers: encodeURIComponent(JSON.stringify(numbers)),
-            analysis: encodeURIComponent(JSON.stringify(analysis))
-        });
+        // 获取性别值
+        let selectedGender;
+        for (const button of genderButtons) {
+            if (button.checked) {
+                selectedGender = button.value;
+                break;
+            }
+        }
 
-        // 跳转到结果页面
-        window.location.href = `result.html?${params.toString()}`;
+        if (!selectedGender) {
+            alert('请选择性别');
+            return;
+        }
+
+        // 计算命理数字
+        const numbers = calculateGourdNumbers(
+            nameInput.value,
+            parseInt(yearSelect.value),
+            parseInt(monthSelect.value),
+            parseInt(daySelect.value),
+            selectedGender
+        );
+
+        // 显示结果
+        displayResults(nameInput.value, numbers);
+
+        // 滚动到结果区域
+        document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
     });
-
-    // 添加烟花效果
-    addFireworks();
-
-    // 添加图片加载优化
-    const personImage = document.querySelector('.banner-image img');
-
-    // 添加加载占位
-    personImage.style.opacity = '0';
-    personImage.style.transition = 'opacity 0.3s ease';
-
-    personImage.onload = function () {
-        this.style.opacity = '1';
-    };
-
-    // 添加图片加载失败处理
-    personImage.onerror = function () {
-        this.style.display = 'none';
-        console.error('人物图片加载失败');
-    };
 }); 

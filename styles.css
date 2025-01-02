@@ -30,6 +30,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: flex-start;
+    color: #fff;
 }
 
 .container {
@@ -49,12 +50,14 @@ body {
 }
 
 .form-container {
-    background: white;
+    background: rgba(255, 255, 255, 0.1);
     padding: 20px;
     margin: 15px auto;
     border-radius: 15px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
     width: 100%;
+    max-width: 500px;
+    backdrop-filter: blur(10px);
 }
 
 .input-group {
@@ -65,37 +68,47 @@ body {
     display: block;
     margin-bottom: 8px;
     font-weight: bold;
+    color: #fff;
 }
 
 .input-group input {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 5px;
     height: 44px;
     font-size: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
 }
 
 .submit-button {
     width: 100%;
     padding: 15px;
-    background: #ff4e50;
+    background: linear-gradient(45deg, #ff4e50, #f9d423);
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 25px;
     font-size: 16px;
     margin-top: 20px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.submit-button:hover {
+    transform: translateY(-2px);
 }
 
 .agreement {
     margin-top: 20px;
     text-align: center;
     font-size: 14px;
+    color: rgba(255, 255, 255, 0.8);
 }
 
 /* 结果容器样式 */
 .result-container {
-    background: #242438;
+    background: rgba(255, 255, 255, 0.1);
     border-radius: 15px;
     padding: 30px;
     margin: 20px auto;
@@ -103,26 +116,27 @@ body {
     width: 100%;
     max-width: 600px;
     position: relative;
+    color: #fff;
+    backdrop-filter: blur(10px);
 }
 
-.gourd-section {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+/* 问候语样式 */
+.greeting {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #fff;
+    font-size: 1.2rem;
 }
 
+/* 葫芦图样式 */
 .gourd-diagram {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.15);
     padding: 25px;
     margin: 25px auto;
     border-radius: 15px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
     width: 100%;
     max-width: 300px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .gourd-shape {
@@ -130,49 +144,53 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 20px;
-    width: fit-content;
 }
 
 .top-number {
-    width: 40px;
-    height: 40px;
-    background: #ff4e50;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(45deg, #ff4e50, #f9d423);
     color: white;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     font-weight: bold;
-    box-shadow: 0 4px 8px rgba(255, 78, 80, 0.2);
+    box-shadow: 0 4px 8px rgba(255, 78, 80, 0.3);
 }
 
 .middle-numbers,
 .bottom-numbers {
-    background: #f9d423;
+    background: linear-gradient(45deg, #f9d423, #ff4e50);
     color: white;
-    padding: 8px 20px;
+    padding: 10px 25px;
     border-radius: 25px;
-    font-size: 1rem;
+    font-size: 1.2rem;
     letter-spacing: 8px;
-    box-shadow: 0 4px 8px rgba(249, 212, 35, 0.2);
-    width: 120px;
+    box-shadow: 0 4px 8px rgba(249, 212, 35, 0.3);
+    min-width: 150px;
     text-align: center;
-    display: flex;
-    justify-content: center;
 }
 
 .bottom-numbers {
-    width: 180px;
+    min-width: 200px;
 }
 
-/* 分析内容的样式优化 */
+/* 分析内容样式 */
 .analysis-content {
-    padding: 0;
-    width: 100%;
-    max-width: 450px;
-    margin: 0 auto;
-    color: #333;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px 0;
+    color: #fff;
+}
+
+.analysis-content h3 {
+    color: #FFD700;
+    margin: 20px 0 10px;
+    font-size: 1.2rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .analysis-content ul {
@@ -190,7 +208,7 @@ body {
     content: "•";
     position: absolute;
     left: 0;
-    color: #ff4e50;
+    color: #FFD700;
 }
 
 .positive,
@@ -200,426 +218,28 @@ body {
 
 .positive h4,
 .negative h4 {
-    color: #666;
+    color: rgba(255, 255, 255, 0.9);
     margin-bottom: 5px;
-}
-
-.analysis-content h3 {
-    color: #ff4e50;
-    margin: 20px 0 10px;
-}
-
-.analysis-content div {
-    margin-bottom: 15px;
-    line-height: 1.6;
-    color: #333;
-}
-
-/* 日期选择器样式优化 */
-.flatpickr-input {
-    background: #fff !important;
-    cursor: pointer;
-}
-
-.flatpickr-day.selected {
-    background: #ff4e50 !important;
-    border-color: #ff4e50 !important;
-}
-
-.flatpickr-day:hover {
-    background: #ffd4d4 !important;
-}
-
-/* 性别按钮样式优化 */
-.gender-buttons {
-    display: flex;
-    gap: 10px;
-}
-
-.gender-buttons button {
-    flex: 1;
-    padding: 10px;
-    border: 2px solid #ddd;
-    background: white;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    height: 44px;
-    min-width: 80px;
-    font-size: 1rem;
-}
-
-.gender-buttons button.active {
-    background: #ff4e50;
-    color: white;
-    border-color: #ff4e50;
-}
-
-.gender-buttons button:hover:not(.active) {
-    border-color: #ff4e50;
-    color: #ff4e50;
-}
-
-/* 日期选择样式 */
-.date-select {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-}
-
-.date-input {
-    flex: 1;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 16px;
-    background-color: white;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    min-width: 90px;
-}
-
-.date-input:hover {
-    border-color: #ff4e50;
-}
-
-.date-input:focus {
-    outline: none;
-    border-color: #ff4e50;
-    box-shadow: 0 0 0 2px rgba(255, 78, 80, 0.1);
-}
-
-/* 顶部背景设计 */
-.top-banner {
-    position: relative;
-    width: 100%;
-    background: #FF7B7B;
-    border-radius: 15px;
-    overflow: hidden;
-    padding: 25px 20px;
-    margin-bottom: 20px;
-    min-height: 200px;
-    display: flex;
-    align-items: center;
-}
-
-/* 标题区域 */
-.title-area {
-    position: relative;
-    width: 60%;
-    padding-left: 15px;
-    z-index: 3;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.year-tag {
-    background: #4A148C;
-    color: white;
-    padding: 3px 10px;
-    border-radius: 12px;
-    display: inline-block;
-    margin-bottom: 5px;
-    font-size: clamp(0.65rem, 1.1vw, 0.85rem);
-    position: relative;
-    overflow: hidden;
-    white-space: nowrap;
-}
-
-.main-title {
-    font-size: clamp(1.1rem, 2.2vw, 1.6rem);
-    font-weight: bold;
-    color: #FFD700;
-    margin: 0;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-    letter-spacing: clamp(1px, 0.2vw, 2px);
-    line-height: 1.3;
-    white-space: nowrap;
-}
-
-.sub-title {
-    font-size: clamp(0.75rem, 1.1vw, 0.95rem);
-    color: #FFE4B5;
-    margin-top: 3px;
-    letter-spacing: clamp(0.5px, 0.15vw, 1.5px);
-    line-height: 1.4;
-    opacity: 0.9;
-}
-
-/* 灯笼样式 */
-.lantern {
-    position: absolute;
-    left: 20px;
-    top: 20px;
-    width: 60px;
-    height: 100px;
-    background-image: url('assets/lantern.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    animation: swing 3s ease-in-out infinite;
-}
-
-/* 添加科技感效果 */
-.year-tag::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(to right,
-            rgba(255, 255, 255, 0) 0%,
-            rgba(255, 255, 255, 0.3) 50%,
-            rgba(255, 255, 255, 0) 100%);
-    transform: rotate(45deg);
-    animation: shine 3s infinite;
-}
-
-/* 添加科技感动画 */
-@keyframes shine {
-    0% {
-        left: -50%;
-    }
-
-    100% {
-        left: 150%;
-    }
-}
-
-/* 梅花装饰 */
-.plum-blossom {
-    position: absolute;
-    right: 20px;
-    top: 20px;
-    width: 100px;
-    height: 100px;
-    background-image: url('assets/plum-blossom.png');
-    background-size: contain;
-    background-repeat: no-repeat;
 }
 
 /* 动画效果 */
-@keyframes swing {
-
-    0%,
-    100% {
-        transform: rotate(-5deg);
-    }
-
-    50% {
-        transform: rotate(5deg);
-    }
+.number-appear {
+    animation: fadeInScale 0.5s ease forwards;
 }
 
-/* 适配移动端 */
-@media (max-width: 768px) {
-    .top-banner {
-        padding: 20px 15px;
-        min-height: 180px;
-    }
-
-    .title-area {
-        width: 55%;
-        padding-left: 10px;
-        gap: 4px;
-    }
-
-    .year-tag {
-        padding: 2px 8px;
-        margin-bottom: 4px;
-        font-size: clamp(0.6rem, 0.9vw, 0.75rem);
-    }
-
-    .main-title {
-        font-size: clamp(0.9rem, 1.8vw, 1.3rem);
-        letter-spacing: 0.8px;
-    }
-
-    .sub-title {
-        font-size: clamp(0.65rem, 0.9vw, 0.85rem);
-        letter-spacing: 0.4px;
-        margin-top: 2px;
-    }
-
-    .banner-image {
-        width: 45%;
-        padding-right: 10px;
-    }
-}
-
-/* 花效果 */
-.firework {
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: #FFD700;
-    animation: explode 1s ease-out forwards;
-}
-
-@keyframes explode {
-    0% {
-        transform: scale(1);
-        opacity: 1;
-    }
-
-    100% {
-        transform: scale(20);
-        opacity: 0;
-    }
-}
-
-/* 人物图片容器 */
-.banner-image {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    height: 90%;
-    width: 40%;
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
-    padding-right: 15px;
-}
-
-.banner-image img {
-    height: 100%;
-    width: auto;
-    object-fit: contain;
-}
-
-/* 添加加载动画 */
-@keyframes fadeInRight {
+@keyframes fadeInScale {
     from {
         opacity: 0;
-        transform: translateX(30px);
+        transform: scale(0.8);
     }
 
     to {
         opacity: 1;
-        transform: translateX(0);
+        transform: scale(1);
     }
 }
 
-.banner-image {
-    animation: fadeInRight 0.8s ease-out;
-}
-
-/* 添加科技感装饰元素 */
-.top-banner::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image:
-        linear-gradient(45deg, rgba(255, 255, 255, .1) 25%, transparent 25%),
-        linear-gradient(-45deg, rgba(255, 255, 255, .1) 25%, transparent 25%),
-        linear-gradient(45deg, transparent 75%, rgba(255, 255, 255, .1) 75%),
-        linear-gradient(-45deg, transparent 75%, rgba(255, 255, 255, .1) 75%);
-    background-size: 20px 20px;
-    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
-    opacity: 0.1;
-}
-
-/* 计算动画样式 */
-.calculation-animation {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
-
-.calculation-content {
-    text-align: center;
-}
-
-.magic-circle {
-    position: relative;
-    width: 150px;
-    height: 150px;
-    margin: 0 auto 20px;
-}
-
-.circle-outer {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: 2px solid #FFD700;
-    border-radius: 50%;
-    animation: rotate 4s linear infinite;
-}
-
-.circle-inner {
-    position: absolute;
-    top: 25%;
-    left: 25%;
-    width: 50%;
-    height: 50%;
-    border: 2px solid #FF4E50;
-    border-radius: 50%;
-    animation: rotate-reverse 3s linear infinite;
-}
-
-.symbols {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    animation: rotate 6s linear infinite;
-}
-
-.symbols span {
-    position: absolute;
-    color: #FFD700;
-    font-size: 24px;
-    width: 40px;
-    height: 40px;
-    line-height: 40px;
-    text-align: center;
-}
-
-.symbols span:nth-child(1) {
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.symbols span:nth-child(2) {
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.symbols span:nth-child(3) {
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.symbols span:nth-child(4) {
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.calculating-text {
-    color: #FFD700;
-    font-size: 1rem;
-    margin-top: 15px;
-    animation: pulse 1.5s infinite;
-}
-
-/* 结果显示动画 */
+/* 渐显效果 */
 .fade-in {
     opacity: 0;
     transform: translateY(20px);
@@ -629,468 +249,4 @@ body {
 .fade-in.show {
     opacity: 1;
     transform: translateY(0);
-}
-
-.result-item {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
-}
-
-.result-item.show {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* 动画关键帧 */
-@keyframes rotate {
-    from {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-@keyframes rotate-reverse {
-    from {
-        transform: rotate(360deg);
-    }
-
-    to {
-        transform: rotate(0deg);
-    }
-}
-
-@keyframes pulse {
-    0% {
-        opacity: 0.6;
-    }
-
-    50% {
-        opacity: 1;
-    }
-
-    100% {
-        opacity: 0.6;
-    }
-}
-
-/* 数字出现动画 */
-.number-appear {
-    opacity: 0;
-    transform: scale(0.5);
-    animation: numberAppear 0.5s ease forwards;
-}
-
-@keyframes numberAppear {
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-/* 模块出现动画 */
-.module-appear {
-    opacity: 0;
-    transform: translateY(20px);
-    animation: moduleAppear 0.5s ease forwards;
-}
-
-@keyframes moduleAppear {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* 优化文字显示效果 */
-.result-item {
-    background: rgba(255, 255, 255, 0.8);
-    border-radius: 10px;
-    padding: 20px;
-    margin: 15px auto;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
-    width: 100%;
-    max-width: 450px;
-}
-
-.result-item:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-/* 打字机光标效果 */
-.result-item p,
-.result-item li {
-    border-right: 2px solid #ff4e50;
-    white-space: pre-wrap;
-    overflow: hidden;
-}
-
-/* 模块标题动画 */
-.analysis-content h3 {
-    position: relative;
-    padding-left: 15px;
-    overflow: hidden;
-}
-
-.analysis-content h3::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 50%;
-    width: 4px;
-    height: 0;
-    background: #ff4e50;
-    transform: translateY(-50%);
-    animation: titleLine 0.3s ease forwards;
-}
-
-@keyframes titleLine {
-    to {
-        height: 80%;
-    }
-}
-
-/* 结果页面响应式调整 */
-.result-page {
-    background-color: #1e1e1e;
-    min-height: 100vh;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 20px;
-}
-
-.result-wrapper {
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-/* 葫芦图响应式调整 */
-.gourd-diagram {
-    padding: 15px;
-    margin: 15px 0;
-}
-
-.top-number {
-    width: 40px;
-    height: 40px;
-    font-size: 1.2rem;
-}
-
-.middle-numbers,
-.bottom-numbers {
-    padding: 8px 20px;
-    font-size: 1rem;
-    letter-spacing: 8px;
-}
-
-/* 内容区块响应式调整 */
-.content-box {
-    padding: 20px;
-    margin: 15px auto;
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    width: 100%;
-    max-width: 450px;
-    color: #333;
-}
-
-/* 标题响应式调整 */
-.section-title {
-    font-size: 1.3rem;
-    margin: 25px auto 15px;
-    padding-left: 15px;
-    position: relative;
-    text-align: center;
-    max-width: 450px;
-    color: #333;
-}
-
-/* 计算动画响应式调整 */
-.magic-circle {
-    width: 150px;
-    height: 150px;
-}
-
-.calculating-text {
-    font-size: 1rem;
-    margin-top: 15px;
-}
-
-/* 安全区适配 */
-@supports (padding-bottom: env(safe-area-inset-bottom)) {
-    .container {
-        padding-bottom: calc(env(safe-area-inset-bottom) + 15px);
-    }
-
-    .result-wrapper {
-        padding-bottom: calc(env(safe-area-inset-bottom) + 15px);
-    }
-}
-
-/* 适配刘海屏 */
-@supports (padding-top: env(safe-area-inset-top)) {
-    .top-banner {
-        padding-top: env(safe-area-inset-top);
-    }
-}
-
-/* 暗模式支持 */
-@media (prefers-color-scheme: dark) {
-    body {
-        background-color: #121212;
-        color: #ffffff;
-    }
-
-    .form-container,
-    .result-container {
-        background-color: #1e1e1e;
-    }
-
-    .input-group input,
-    .date-input {
-        background-color: #2d2d2d;
-        color: #ffffff;
-        border-color: #404040;
-    }
-}
-
-/* 横屏适配 */
-@media screen and (orientation: landscape) and (max-height: 500px) {
-    .top-banner {
-        height: 150px;
-    }
-
-    .form-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 15px;
-    }
-}
-
-/* 可访问优化 */
-@media (prefers-reduced-motion: reduce) {
-    * {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-    }
-}
-
-/* 修改用户信息样式 */
-.user-info {
-    text-align: center;
-    margin: 20px auto;
-    font-size: 1.2rem;
-    color: #333;
-}
-
-/* 修改结果头部样式 */
-.result-header {
-    text-align: center;
-    margin: 20px auto;
-    max-width: 450px;
-}
-
-.result-header h1 {
-    font-size: 1.8rem;
-    color: #ff4e50;
-    margin-bottom: 15px;
-}
-
-/* 移动端配优化 */
-@media (max-width: 768px) {
-
-    .container,
-    .result-wrapper {
-        padding: 10px;
-    }
-
-    .content-box,
-    .result-item,
-    .analysis-content {
-        max-width: 100%;
-    }
-
-    .gourd-diagram {
-        max-width: 280px;
-    }
-}
-
-/* 小屏幕适配 */
-@media (max-width: 320px) {
-    .top-banner {
-        padding: 15px 10px;
-        min-height: 160px;
-    }
-
-    .title-area {
-        width: 52%;
-        padding-left: 5px;
-        gap: 3px;
-    }
-
-    .year-tag {
-        padding: 2px 6px;
-        margin-bottom: 3px;
-        font-size: 0.55rem;
-    }
-
-    .main-title {
-        font-size: 0.85rem;
-        letter-spacing: 0.3px;
-    }
-
-    .sub-title {
-        font-size: 0.55rem;
-        letter-spacing: 0.2px;
-        margin-top: 1px;
-    }
-
-    .banner-image {
-        width: 48%;
-        padding-right: 5px;
-    }
-}
-
-/* 基因数值标题样式 */
-.result-container h2 {
-    color: #FFD700;
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 1.5rem;
-}
-
-/* 性格特征等标题样式 */
-.section-title {
-    font-size: 1.3rem;
-    margin: 25px auto 15px;
-    padding-left: 15px;
-    position: relative;
-    text-align: center;
-    max-width: 450px;
-    color: #FFD700;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-}
-
-/* 正面特质文字样式 */
-.positive {
-    color: #FFE4B5;
-    margin-bottom: 15px;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-}
-
-/* 负面特质文字样式 */
-.negative {
-    color: #FFE4B5;
-    margin-bottom: 15px;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-}
-
-/* 内容区块样式 */
-.content-box {
-    padding: 20px;
-    margin: 15px auto;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    width: 100%;
-    max-width: 450px;
-    color: #FFE4B5;
-    backdrop-filter: blur(5px);
-}
-
-/* 欢迎语样式 */
-.user-info {
-    text-align: center;
-    margin: 20px auto;
-    font-size: 1.2rem;
-    color: #FFE4B5;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-}
-
-/* 标题样式 */
-.result-header h1 {
-    font-size: 1.8rem;
-    color: #FFD700;
-    margin-bottom: 15px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-/* 暗模式支持 */
-@media (prefers-color-scheme: dark) {
-    body {
-        background-color: #121212;
-        color: #FFE4B5;
-    }
-
-    .form-container,
-    .result-container {
-        background-color: #1e1e1e;
-    }
-
-    .content-box {
-        background: rgba(255, 255, 255, 0.05);
-        color: #FFE4B5;
-    }
-
-    .section-title,
-    .result-container h2 {
-        color: #FFD700;
-    }
-}
-
-.section {
-    width: 100%;
-    margin-bottom: 30px;
-}
-
-/* 添加主容器样式 */
-.report-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    padding: 20px;
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-/* 确保所有内容块都居中 */
-.report-section {
-    width: 100%;
-    text-align: center;
-    margin-bottom: 2rem;
-}
-
-/* 调整基因数值容器 */
-.gene-values-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    margin: 2rem 0;
-}
-
-/* 确保文本块居中且宽度合适 */
-.personality-traits,
-.heart-voice {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 1rem;
-    background-color: rgba(255, 255, 255, 0.05);
-    border-radius: 8px;
 }
